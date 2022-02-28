@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        console.time()
+        let arr = [
+            { id: 1, name: '部门1', pid: 0 },
+            { id: 2, name: '部门2', pid: 1 },
+            { id: 3, name: '部门3', pid: 1 },
+            { id: 4, name: '部门4', pid: 3 },
+            { id: 5, name: '部门5', pid: 4 },
+        ]
+        // console.log(arrayToTree(arr))
+        // console.timeEnd()
+
+        // function arrayToTree(items) {
+        //     const result = [];   // 存放结果集
+        //     const itemMap = {};  // 
+        //     for (const item of items) {
+        //         const { pid, id } = item;
+
+        //         if (!itemMap[id]) {
+        //             itemMap[id] = {
+        //                 children: [],
+        //             }
+        //         }
+
+        //         itemMap[id] = {
+        //             ...item,
+        //             children: itemMap[id]['children']
+        //         }
+
+        //         const treeItem = itemMap[id];
+
+        //         if (pid === 0) {
+        //             result.push(treeItem);
+        //         } else {
+        //             if (!itemMap[pid]) {
+        //                 itemMap[pid] = {
+        //                     children: [],
+        //                 }
+        //             }
+        //             itemMap[pid].children.push(treeItem)
+        //         }
+
+        //     }
+        //     return result;
+        // }
+        console.time()
+        let treeList = arr.reduce((prev, cur) => {
+            prev[cur['id']] = cur;
+            return prev
+        }, {})
+        // console.log(treeList)
+        let result = arr.reduce((prev, cur) => {
+            let pid = cur.pid;
+            const newCur = treeList[pid];
+            if (newCur) {
+                newCur.children ? newCur.children.push(cur) : newCur.children = [cur]
+            } else if (pid === 0) {
+                prev.push(cur)
+            }
+            return prev
+        }, [])
+        console.log(result)
+        console.timeEnd()
+    // console.log(result)
+
+    </script>
+</body>
+
+</html>
