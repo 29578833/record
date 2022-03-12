@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var sex = '女';
+        let obj = {
+            sex: '男'
+        }
+        function foo(name, age) {
+            return {
+                name,
+                age,
+                sex: this.sex
+            }
+        }
+
+        Function.prototype.myCall = function (context) {
+            const newContext = context || window;
+            newContext.fn = this;
+            const [, ...arg] = arguments;
+            const result = newContext.fn(...arg)
+            delete newContext.fn
+            return result;
+        }
+
+        Function.prototype.myApply = function (context) {
+            let result = null;
+            const newContext = context || window;
+            const [, arg] = arguments;
+            newContext.fn = this;
+            result = !arg.length ? newContext.fn() : newContext.fn(...arg)
+            delete newContext;
+            return result;
+        }
+
+        console.log(foo.myApply(obj, ['小胖', 18]))
+    </script>
+</body>
+
+</html>
