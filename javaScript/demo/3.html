@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var allArr = {
+            "abc": "123",
+            "efg": 123,
+            "arr": [
+                {
+                    "dd": "123",
+                    "ff": "456"
+                },
+                {
+                    "dd": "678",
+                    "ff": "789"
+                },
+            ]
+        }
+
+        var newdata = {};
+        var formdata = records[i].value.form_data;
+        var newdata = JSON.parse(formdata);
+
+        newdata.data_id = records[i].value.id;
+        newdata.orgid = records[i].value.org_id;
+        newdata.user_id = records[i].value.operator_id;
+        newdata.user_name = records[i].value.operator_name;
+        newdata.ins_time = records[i].value.operate_time;
+        newdata.form_key = records[i].value.form_key;
+        newdata.info_id = records[i].value.info_id;
+
+        var arr = [];
+        for (let key in newdata) {
+            if (Array.isArray(newdata[key])) {
+                arr = newdata[key];
+                break;
+            }
+        }
+        if (arr.length) {
+            arr.forEach(item => {
+                Object.assign(item, { ...newdata })
+            })
+        }
+    </script>
+</body>
+
+</html>
