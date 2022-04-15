@@ -55,13 +55,17 @@
         //     }
         //     return result;
         // }
-        console.time()
-        let treeList = arr.reduce((prev, cur) => {
-            prev[cur['id']] = cur;
-            return prev
-        }, {})
+        // console.time()
+        // let treeList = arr.reduce((prev, cur) => {
+        //     prev[cur['id']] = cur;
+        //     return prev
+        // }, {})
         // console.log(treeList)
-        let result = arr.reduce((prev, cur) => {
+        const treeList = {};
+        for (const item of arr) {
+            treeList[item.id] = item;
+        }
+        let tree = arr.reduce((prev, cur) => {
             let pid = cur.pid;
             const newCur = treeList[pid];
             if (newCur) {
@@ -71,8 +75,21 @@
             }
             return prev
         }, [])
-        console.log(result)
-        console.timeEnd()
+        console.log(tree)
+
+        console.log('当前节点', findTree(6, tree))
+
+        function findTree(id, satet) {
+            for (item of satet) {
+                if (item.id === id) {
+                    return item
+                } else if (item.children) {
+                    return findTree(id, item.children)
+                }
+            }
+            return ''
+        }
+        // console.timeEnd()
     // console.log(result)
 
     </script>
