@@ -1,11 +1,10 @@
 
-function foo(a) {
-    var b = 2;
-    function c() { }
-    var d = function () { };
-
-    b = 3;
-
+var num = 1;
+function A() {
+    var num1 = 1;
+    function B() {
+        console.log(num)
+    }
+    B()
 }
-
-foo(1);
+A()
